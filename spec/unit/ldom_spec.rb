@@ -15,7 +15,11 @@ DOMAINCHASSIS|serialno=0704RB0280"
 
     Facter.fact(:kernel).stubs(:value).returns("SunOS")
     Facter::Util::Resolution.stubs(:exec).with("virtinfo -ap").returns(ldom_v1)
-    Facter.collection.loader.load(:ldom)
+    if Facter.collection.respond_to? :internal_loader
+      Facter.collection.internal_loader.load(:ldom) # Facter >= 1.7.x
+    else
+      Facter.collection.loader.load(:ldom) # Facter < 1.7.x
+    end
   end
 
   # http://docs.oracle.com/cd/E23824_01/html/821-1462/virtinfo-1m.html
