@@ -1,4 +1,7 @@
 # Puppet Solaris 11 Enhancements
+
+[![Build Status](https://travis-ci.org/nanliu/puppet-solaris.png?branch=master)](https://travis-ci.org/nanliu/puppet-solaris)
+
 Warning: this is a personal experimental project to improve [Puppet](http://www.puppetlabs.com) support for [OpenIndiana](http://openindiana.org/) and Solaris 11 features.
 
 ## Overview
