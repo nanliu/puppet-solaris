@@ -72,6 +72,9 @@ describe Puppet::Type.type(:service_config).provider(:svccfg) do
   end
 
   describe "#ensure=" do
+    before :each do
+      provider.stubs(:svcadm)
+    end
 
     describe "and type is astring" do
       before :each do
@@ -144,6 +147,14 @@ describe Puppet::Type.type(:service_config).provider(:svccfg) do
         provider.expects(:svccfg).with('-s', fmri, :setprop, prop, '=', 'integer:', '(500 600)')
         provider.ensure = [ '500', '600' ]
       end
+    end
+  end
+
+  describe "#flush" do
+    it "should refresh the service" do
+      Puppet::Type.type(:service_config).new(title.merge(:type => :integer, :ensure => '10', :provider => provider))
+      provider.expects(:svcadm).with(:refresh,'svc:/system/keymap:default')
+      provider.flush
     end
   end
 end
