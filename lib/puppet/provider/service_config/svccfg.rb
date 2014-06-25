@@ -3,6 +3,7 @@ Puppet::Type.type(:service_config).provide(:svccfg) do
   desc "Manages smf configuration with svccfg"
 
   commands :svccfg => '/usr/sbin/svccfg'
+  commands :svcadm => '/usr/sbin/svcadm'
 
   defaultfor :operatingsystem => :solaris
 
@@ -51,4 +52,7 @@ Puppet::Type.type(:service_config).provide(:svccfg) do
     end
   end
 
+  def flush
+    svcadm(:refresh, resource[:fmri])
+  end
 end
